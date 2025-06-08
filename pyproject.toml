@@ -1,0 +1,25 @@
+[project]
+name = "itm-data-ingestion"
+version = "0.1.0"
+description = "Ingest & transform data from ABS to Delta Lake"
+authors = [
+    {name = "Aliou Sow",email = "alioujigga@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "pyspark==3.5.6",
+    "delta-spark==3.3.2",
+    "pydantic>=2.11.5,<3.0.0",
+    "azure-storage-blob==12.25.1",
+    "python-dotenv==1.1.0"  
+]
+
+[tool.poetry]
+packages = [{include = "itm_data_ingestion", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
