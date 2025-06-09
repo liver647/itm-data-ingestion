@@ -39,7 +39,6 @@ def get_spark_session(
         .set("spark.sql.legacy.timeParserPolicy", "LEGACY")
         .set("spark.sql.optimizer.dynamicPartitionPruning.enabled", "true")
         .set("spark.sql.join.preferSortMergeJoin", "true")
-        #.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
         # Enable Delta Lake
         .set("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
         .set("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
