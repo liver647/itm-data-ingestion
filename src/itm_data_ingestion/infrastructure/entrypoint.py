@@ -19,17 +19,20 @@ if __name__ == "__main__":
     # Read new client data from ABS
     input_clients_df = azure_blob_reader.read("clients.csv", session)
     input_stores_df       = azure_blob_reader.read("stores.csv", session)
-    #input_products_df     = azure_blob_reader.read("products.csv", session)
-    #input_transactions_df = azure_blob_reader.read("transactions_*.csv", session)
+    input_products_df     = azure_blob_reader.read("products.csv", session)
+    input_transactions_df = azure_blob_reader.read("transactions_*.csv", session)
 
-    #input_stores_df.printSchema()
-    #input_stores_df.show(truncate=False)
+    #input_transactions_df.printSchema()
+    #input_transactions_df.show(truncate=False)
 
     # perform needed transformations
-    output_stores_df = transformers.handle_stores(input_stores=input_stores_df)
+    output_stores_df = transformers.handle_stores(input_stores_df=input_stores_df)
+    output_transactions_df = transformers.handle_transactions(input_transactions_df=input_transactions_df, clients_df=input_clients_df)
 
     # Write transformed data to delta lake
     writer.write("clients", input_clients_df)
+    writer.write("products", input_products_df)
     writer.write("stores", output_stores_df)
+    writer.write("transactions", output_transactions_df)
 
     

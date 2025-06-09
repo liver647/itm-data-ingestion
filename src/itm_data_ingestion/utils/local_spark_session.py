@@ -36,14 +36,10 @@ def get_spark_session(
         .set("spark.sql.sources.partitionColumnTypeInference.enabled", "false")
         .set("spark.sql.parquet.compression.codec", "snappy")
         .set("spark.sql.sources.partitionOverwriteMode", "dynamic")
-        .set("spark.sql.legacy.timeParserPolicy", "CORRECTED")
+        .set("spark.sql.legacy.timeParserPolicy", "LEGACY")
         .set("spark.sql.optimizer.dynamicPartitionPruning.enabled", "true")
         .set("spark.sql.join.preferSortMergeJoin", "true")
-        .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-        # Enable Adaptive Query Execution
-        .set("spark.sql.adaptive.enabled", "true")
-        .set("spark.sql.adaptive.skewJoin.enabled", "true")
-        .set("spark.sql.adaptive.coalescePartitions.enabled", "true")
+        #.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
         # Enable Delta Lake
         .set("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
         .set("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
@@ -55,7 +51,7 @@ def get_spark_session(
         .config(conf=conf)
         .enableHiveSupport()
     )
-    
+
     spark = delta.configure_spark_with_delta_pip(builder).getOrCreate()
     spark.conf.set(
         f"fs.azure.account.key.{account_name}.blob.core.windows.net",
