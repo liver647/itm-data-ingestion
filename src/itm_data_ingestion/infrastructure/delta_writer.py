@@ -12,5 +12,6 @@ class DeltaWriter:
         (
             df.write.format("delta")
             .mode("overwrite")
+            .option("overwriteSchema", "true")
             .save(str(target))
         )

@@ -24,6 +24,7 @@ def read(filename: str, spark: SparkSession) -> DataFrame:
     return (
         spark.read
         .option("header", True)
+        .option("sep", ";")
         .option("inferSchema", True)
         .option("mode", "PERMISSIVE")
         .option("nullValue", "")
