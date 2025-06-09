@@ -18,7 +18,11 @@ dependencies = [
 ]
 
 [tool.poetry]
+name = "itm_data_ingestion"
 packages = [{include = "itm_data_ingestion", from = "src"}]
+
+[tool.poetry.scripts]
+ingest-data = "itm_data_ingestion.infrastructure.entrypoint:main"
 
 
 [build-system]
