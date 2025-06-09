@@ -7,8 +7,8 @@ class DeltaWriter:
     def __init__(self, config: Settings):
         self.config = config
 
-    def write(self, name: str, df: DataFrame):
-        target = self.config.delta_dir / name
+    def write(self, table_name: str, df: DataFrame):
+        target = self.config.delta_dir / table_name
         (
             df.write.format("delta")
             .mode("overwrite")
