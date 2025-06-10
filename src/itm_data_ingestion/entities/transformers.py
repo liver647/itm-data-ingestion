@@ -48,12 +48,12 @@ class Transformers:
             )
             .withColumn(
                 "timestamp",
-                from_utc_timestamp(to_timestamp(
+                to_timestamp(
                     concat_ws(" ", col("date"), col("hour"), col("minute")),
-                    self.TIMESTAMP_FMT,
-                ), "Europe/Paris")
+                    self.TIMESTAMP_FMT
+                )
             )
-            .drop("date", "hour", "minute", "id")
+            .drop("date", "minute", "id")
         )
 
         return enriched_transctions_df

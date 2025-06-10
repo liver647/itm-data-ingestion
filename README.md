@@ -24,3 +24,11 @@ Copy the `.env.example` file to `.env` and correct the values if needed.
 ```shell
 poetry run spark-submit --packages "org.apache.hadoop:hadoop-azure:3.3.4,io.delta:delta-spark_2.12:3.3.2" src/itm_data_ingestion/infrastructure/entrypoint.py
 ```
+
+
+## Testing
+
+To run the tests, run:
+```shell
+poetry run pytest
+```
