@@ -1,7 +1,5 @@
 """A module containing the Project transformations."""
 
-from __future__ import annotations
-
 from pyspark.sql import SparkSession, DataFrame
 from itm_data_ingestion.infrastructure.settings import Settings
 from pyspark.sql.functions import concat_ws, to_timestamp, col, split, regexp_replace, from_utc_timestamp
