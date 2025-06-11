@@ -9,22 +9,11 @@ from itm_data_ingestion.entities.transformers import Transformers
 
 @pytest.fixture(scope="module")
 def spark() -> SparkSession:
-    conf = (
-        SparkConf()
-        # General Configuration
-        .set("spark.sql.session.timeZone", "Europe/Paris")
-        .set("spark.sql.sources.partitionColumnTypeInference.enabled", "false")
-        .set("spark.sql.parquet.compression.codec", "snappy")
-        .set("spark.sql.sources.partitionOverwriteMode", "dynamic")
-        .set("spark.sql.legacy.timeParserPolicy", "LEGACY")
-        .set("spark.sql.optimizer.dynamicPartitionPruning.enabled", "true")
-        .set("spark.sql.join.preferSortMergeJoin", "true") 
-    )
+    
     return (
         SparkSession.builder
         .appName("TransformersTest")
         .master("local[1]")
-        .config(conf=conf)
         .getOrCreate()
     )
 
@@ -64,7 +53,7 @@ def test_handle_transactions(spark, transformers):
     final_transactions_df = transformers.handle_transactions(transactions_df, clients_df).collect()[0]
 
     assert final_transactions_df["account_id"] == 123
-    assert final_transactions_df["timestamp"].strftime("%Y-%m-%d %H:%M") == "2023-12-01 14:30"
+    assert final_transactions_df["timestamp_utc"].strftime("%Y-%m-%d %H:%M") == "2023-12-01 14:30"
 
 
 def test_transaction_with_unknown_client(spark, transformers):
@@ -94,5 +83,5 @@ def test_transaction_with_invalid_date_format(spark, transformers):
 
     final_transactions_df = transformers.handle_transactions(transactions_df, clients_df).collect()[0]
 
-    assert final_transactions_df["timestamp"] is None
+    assert final_transactions_df["timestamp_utc"] is None
     assert final_transactions_df["account_id"] == 123

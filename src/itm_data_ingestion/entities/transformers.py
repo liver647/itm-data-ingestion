@@ -2,7 +2,7 @@
 
 from pyspark.sql import SparkSession, DataFrame
 from itm_data_ingestion.infrastructure.settings import Settings
-from pyspark.sql.functions import concat_ws, to_timestamp, col, split, regexp_replace, from_utc_timestamp
+from pyspark.sql.functions import concat_ws, to_timestamp, col, split, regexp_replace
 
 from typing import Final
 
@@ -45,7 +45,7 @@ class Transformers:
                 how="left"
             )
             .withColumn(
-                "timestamp",
+                "timestamp_utc",
                 to_timestamp(
                     concat_ws(" ", col("date"), col("hour"), col("minute")),
                     self.TIMESTAMP_FMT
