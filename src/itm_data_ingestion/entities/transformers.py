@@ -51,7 +51,7 @@ class Transformers:
                     self.TIMESTAMP_FMT
                 )
             )
-            .drop("date", "minute", "id")
+            .drop("date", "hour", "minute", "id")
         )
 
         return enriched_transctions_df

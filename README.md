@@ -32,3 +32,14 @@ To run the tests, run:
 ```shell
 poetry run pytest
 ```
+
+
+## Architecture
+
+```
+[CSV source (Azure CS)]
+    ↓ 
+[PySpark DataFrame] --(Transformers class)-->
+    ↓
+[DeltaWriter] --> [Delta Lake]
+```
